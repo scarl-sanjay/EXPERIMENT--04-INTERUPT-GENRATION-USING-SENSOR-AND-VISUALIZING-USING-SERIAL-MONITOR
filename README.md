@@ -1,8 +1,8 @@
-###  DATE: 
+###  DATE: 05.03.2024
 
-###  NAME: 
-###  ROLL NO :
-###  DEPARTMENT: 
+###  NAME: SANJAY S
+###  ROLL NO :  212223040184
+###  DEPARTMENT: B.E CSE
 
 
 # EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR
@@ -119,14 +119,50 @@ The diagram below shows how the GPIO pins are connected to the 16 interrupt line
 
 ## STM 32 CUBE PROGRAM :
 
+#include "main.h"
+#include "stdio.h"
 
+#if defined (_ICCARM) || defined (_ARMCC_VERSION)
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#elif defined(_GNUC_)
+
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#endif
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+		if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4)==0)
+		{
+			printf("obstacle found\n");
+			HAL_Delay(500);
+		}
+		else
+		{
+			printf("obstacle not found\n");
+			HAL_Delay(500);
+		}
+}
+
+PUTCHAR_PROTOTYPE
+{
+
+  HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
+
+  return ch;
+}
 
 ## Output screen shots of serial port utility   :
- 
+
+![310939546-97c5bbfa-1e57-45ae-9bd8-a6ed159c0085](https://github.com/scarl-sanjay/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/147120917/05771d0a-e8ef-4582-8952-9d5598b924d1)
+![310939657-13d9af5f-d6bf-49df-8cb6-5f9151e2feaf](https://github.com/scarl-sanjay/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/147120917/f1d663a5-7db5-4e12-aced-55032941919d)
+
+
  
  ## Circuit board :
  
- 
+ ![310939805-bee8cf59-8034-47b2-84fa-78af3f72f8f5](https://github.com/scarl-sanjay/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/147120917/ee3cdc46-be01-427c-acb7-68a7d40db4a5)
+![310939872-5f075a15-4432-444e-a1ae-055961e762ea](https://github.com/scarl-sanjay/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/147120917/a563fda3-aac3-4093-a086-251a609763c1)
+
  
 ## Result :
 Interfacing a  IR SENSOR and interrupt is generated using external interrupt mode , visualized on serial port 
